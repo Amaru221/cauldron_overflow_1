@@ -14,6 +14,9 @@ framework:
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu
 
+        #alternative if we dont have install apcu or we cant install and need show this.
+        app: cache.adapter.array
+
         # Namespaced pools use the above "app" backend by default
         #pools:
             #my.dedicated.cache: null
