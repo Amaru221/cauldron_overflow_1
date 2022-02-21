@@ -15,7 +15,8 @@ framework:
         #app: cache.adapter.apcu
 
         #alternative if we dont have install apcu or we cant install and need show this.
-        app: cache.adapter.array
+        #app: cache.adapter.array
+        app: '%cache_adapter%'
 
         # Namespaced pools use the above "app" backend by default
         #pools:

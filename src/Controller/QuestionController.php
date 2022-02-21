@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -10,6 +11,22 @@ use App\Service\MarkdownHelper;
 
 class QuestionController extends AbstractController
 {
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+    /**
+     * @var bool
+     */
+    private $isDebug;
+
+    public function __construct(LoggerInterface $logger, bool $isDebug){
+
+        $this->logger = $logger;
+        $this->isDebug = $isDebug;
+    }
+
     /**
      * @Route("/", name="app_homepage")
      */
@@ -28,7 +45,9 @@ class QuestionController extends AbstractController
     public function show($slug, MarkdownHelper $markdownHelper){
 
         //dump($slug, $this);
-
+        if($this->isDebug){
+            $this->logger->info('we are in debug mode!');
+        }
         $answers = [
             'Make sure your cat is sitting purrrfectly still?',
             'Honestly, I like furry shoes better than MY cat',
@@ -43,6 +62,7 @@ class QuestionController extends AbstractController
 
         //dd($markdownParser);
         //dump($cache);
+        //dump($this->getParameter('cache_adapter'));
 
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-',' ', $slug)),
