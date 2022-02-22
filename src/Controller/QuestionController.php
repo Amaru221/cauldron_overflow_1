@@ -44,7 +44,6 @@ class QuestionController extends AbstractController
      */
     public function show($slug, MarkdownHelper $markdownHelper){
 
-        //dump($slug, $this);
         if($this->isDebug){
             $this->logger->info('we are in debug mode!');
         }
@@ -55,14 +54,9 @@ class QuestionController extends AbstractController
         ];
 
         $questionText = 'I\'ve been turned into a cat, any *thoughts* on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
-        //$parsedQuestionText = $markdownParser->transformMarkdown($questionText);
 
         //parseando con nuestro nuevo servicio MarkdownHelper
         $parsedQuestionText = $markdownHelper->parse($questionText);
-
-        //dd($markdownParser);
-        //dump($cache);
-        //dump($this->getParameter('cache_adapter'));
 
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-',' ', $slug)),
